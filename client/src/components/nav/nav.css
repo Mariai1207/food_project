@@ -1,0 +1,9 @@
+.NavBar{
+    background-color: gray;
+}
+.SearchBar{
+    text-align : start;
+}
+.AddRecipe{
+    text-align : end;
+}
