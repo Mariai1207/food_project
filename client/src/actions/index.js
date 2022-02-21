@@ -12,16 +12,37 @@
             payload: json
         }) 
         })
-       // console.log('getrecipes' + json)     
-        
+    }
+
+    
+    
 }
-   /*
-        return {
-            type: "GET_RECIPES", 
-            payload: 'se cargaron todas las recetas'
-        }*/
+export function getTypes (){
 
-
+    return  function (dispatch){
+        console.log('getTypes')
+         fetch('http://localhost:3001/types')   
+         .then(r=> r.json())
+        .then(json=>{
+            return dispatch 
+        ({
+            type: "GET_TYPES", 
+            payload: json
+        }) 
+        })
+    }
+     
     
-    
+}
+export function filterByTypes (payload){
+    return {
+        type: "FILTER_BY_TYPES",
+        payload
+    }
+}
+export function filterByOrder (payload){
+    return {
+        type: "FILTER_BY_ORDER",
+        payload
+    }
 }
