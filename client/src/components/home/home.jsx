@@ -12,14 +12,16 @@ export function Home(props){
     const recipes = useSelector((state)=>state.recipes) // estoy guardando lo que haya en el estado
     const types = useSelector((state)=>state.types)
     // cuando el componente se monte se traen las recetas
-    useEffect (()=>{       
+    useEffect (()=>{    
+        console.log("Estoy montando el componente")   
         dispatch(getRecipes())
-        dispatch(getTypes())
-       
+       dispatch(getTypes())
+      
         
-    }, [])
+    },[])
+    console.log(recipes.title)
     function handleFilterTypes(e){
-      //  dispatch(filterByTypes(e.target.value))
+      dispatch(filterByTypes(e.target.value))
         console.log(e.target.value)
     }
     function handleOrder(e){
