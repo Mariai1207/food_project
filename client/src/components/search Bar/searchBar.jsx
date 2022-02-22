@@ -17,8 +17,7 @@ export function SearchBar (){
     }
 
     return(
-        <div>
-            <h1>search bar</h1>
+        <div>            
             <form onSubmit={(e)=>handleOnSubmit(e)}>
                 <input
                 type='text'

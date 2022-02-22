@@ -10,8 +10,7 @@ export function Recipes(){
     const recipes = useSelector((state)=>state.recipes)
 
     return(
-        <div>
-            <h2>recipes</h2>
+        <div className='cards'>
             {recipes.map(recipe =><Recipe recipe={recipe}/> )}
             
         </div>

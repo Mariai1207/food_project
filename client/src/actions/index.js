@@ -19,8 +19,7 @@
 }
 export function getTypes (){
 
-    return  function (dispatch){
-        console.log('getTypes')
+    return  function (dispatch){        
          fetch('http://localhost:3001/types')   
          .then(r=> r.json())
         .then(json=>{
