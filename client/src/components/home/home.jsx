@@ -14,7 +14,7 @@ export function Home(props){
     // cuando el componente se monte se traen las recetas
     useEffect (()=>{       
         dispatch(getRecipes())
-       dispatch(getTypes())            
+        dispatch(getTypes())            
     },[])
     
     function handleFilterTypes(e){
