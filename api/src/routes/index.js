@@ -8,16 +8,10 @@ const {apikey}= process.env;
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
-
-var https = require ('https');
-var url = require('url');
-const { json } = require('body-parser');
-
-
 const router = Router();
 
 const getRecipesApi= async ()=>{
-   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=e79b139f724e4913a9c13ad1455ff166&offset=0&number=100&addRecipeInformation=true')
+   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=e79b139f724e4913a9c13ad1455ff166&offset=0&number=5&addRecipeInformation=true')
    return response.data.results;
 }
 
@@ -30,6 +24,7 @@ const getRecipesDb= async ()=>{
 
 
 router.get('/recipes', async (req,res)=>{
+  const nameQuery= req.query.name;
   const responseApi=await getRecipesApi()
   const recipesApi= responseApi.map(recipe=>{
    return {
@@ -44,10 +39,22 @@ router.get('/recipes', async (req,res)=>{
       title: recipe.dataValues.name,
       diets: recipe.dataValues.Diets.map(diet => diet.name) 
       }
-  })  
-  const responseFinal= recipesApi.concat(recipesDb)
-  console.log(responseFinal)
-  res.send(responseFinal)
+  }) 
+  const allRecipes= recipesApi.concat(recipesDb)
+
+   if(nameQuery) {
+      let searchName= await allRecipes.filter(recipe=> recipe.title.includes(nameQuery))
+      searchName.length? 
+      res.send(searchName):
+      res.send('no se encontró receta')
+   }else{
+      res.send(allRecipes)
+   }
+  
+
+  
+  
+ 
 })
 
 const getDietsDb= async ()=>{

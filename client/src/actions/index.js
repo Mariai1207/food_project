@@ -1,7 +1,7 @@
  
  
- export function getRecipes (){
-
+ export function getRecipes (title){
+ console.log(title)
     return  function (dispatch){
          fetch('http://localhost:3001/recipes')   
          .then(r=> r.json())
@@ -12,11 +12,9 @@
             payload: json
         }) 
         })
-    }
-
-    
-    
+    }    
 }
+
 export function getTypes (){
 
     return  function (dispatch){        
