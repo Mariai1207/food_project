@@ -1,34 +1,32 @@
 import React from 'react';
 import './searchBar.css';
 import {useDispatch} from 'react-redux';
-import { getRecipes } from '../../actions';
+import { getRecipesSearch } from '../../actions';
 
 export function SearchBar (){
-    const [stateInput, setStateInput]= React.useState(
-        {input:''}
-    )
+    const [stateInput, setStateInput]= React.useState('')
  
     const dispatch = useDispatch()
     
-    function handleOnSubmit(){
-       alert(stateInput)            
-      // dispatch(getRecipes(stateInput))
+    function handleOnSubmit(e){
+       e.preventDefault()         
+       dispatch(getRecipesSearch(stateInput))
+       
     }
     function handleInput (e){
-      // console.log(e.target.value)
-       setStateInput({input:e.target.value})
-       console.log(stateInput)
-       
-      
-        
-    }
+      e.preventDefault()
+      setStateInput(e.target.value)
 
+    }
+        
     return(
         <div>            
             <form onSubmit={(e)=>handleOnSubmit(e)}>
-                <input
+                <input // hacer que se borre el input lueego de la busqueda
+               
                 type='text'
                 autoComplete='off'
+                placeholder='Search...'
                 onChange={(e)=>handleInput(e)}
                 />
                 <button type='submit'> Buscar</button>

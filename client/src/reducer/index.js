@@ -1,7 +1,8 @@
 const initialState={
     recipes: [],
     allRecipes:[],
-    types: []
+    types: [],
+    recipeId:[]
 }
 
 const rootReducer =(state=initialState, action) =>{
@@ -12,10 +13,22 @@ const rootReducer =(state=initialState, action) =>{
                 recipes: action.payload,
                 allRecipes: action.payload
             }
+        case "GET_RECIPES_SEARCH":
+            return{
+                ...state,
+                recipes: action.payload,
+                allRecipes: action.payload            
+            }
         case "GET_TYPES":
             return {
                 ...state,
                 types: action.payload
+            }
+        case "GET_RECIPE_DETAIL":
+            console.log('desde el reducer',action.payload)
+            return {
+                ...state,
+                recipeId: action.payload
             }
         case "FILTER_BY_TYPES":         
             let filterByTypes=[]

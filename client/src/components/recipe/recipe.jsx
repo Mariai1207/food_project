@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './recipe.css';
 
 
@@ -9,6 +10,7 @@ export function Recipe(props){
             <h2>{props.recipe.title}</h2>
            <img src={props.recipe.image}/>
            {props.recipe.diets.map(diet=> <h3>{diet}</h3>)}
+           <Link to= {`/recipes/${props.recipe.id}`}> detail </Link>
         </div>
     )
 }
