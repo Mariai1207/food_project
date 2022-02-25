@@ -11,7 +11,7 @@ const {apikey}= process.env;
 const router = Router();
 
 const getRecipesApi= async ()=>{
-   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=eb86bffdf52d48f4afd70b7a602d513b&offset=0&number=5&addRecipeInformation=true')
+   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=3baef6b6a11e4e728b9a419a61c012a5&offset=0&number=5&addRecipeInformation=true')
    return response.data.results;
 }
 
@@ -34,7 +34,7 @@ const getAllRecipes= async ()=>{
    const responseDb= await getRecipesDb()
    const recipesDb= responseDb.map(recipe=>{
       return {
-       id: recipe.dataValues.id,
+       id: 'db'+recipe.dataValues.id,
        title: recipe.dataValues.name,
        diets: recipe.dataValues.Diets.map(diet => diet.name) 
        }
@@ -89,14 +89,18 @@ router.get('/types', async (req, res)=>{
 
 router.get('/recipes/:id', async (req, res)=>{
    const id= req.params.id;
-   const allRecipes= await getRecipesApi()
-   if(id){
+   if(id.includes('db')){
+     let pk= id.substring(2)
+     const findRecipe= await Recipe.findByPk(pk)
+     res.send(findRecipe)
+   }
+   const response= await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=3baef6b6a11e4e728b9a419a61c012a5`)
+   const recipe= response.data
+   var recipeDetail={}
       
-      let findRecipe= allRecipes.filter(recipe=> recipe.id== id)
-      if(findRecipe.length){
-      recipeDetail= findRecipe.map(recipe=>{
          if(recipe.analyzedInstructions.length){
-            return {
+
+          recipeDetail= {
                id: recipe.id,
                title: recipe.title,
                image: recipe.image,
@@ -108,23 +112,23 @@ router.get('/recipes/:id', async (req, res)=>{
 
             }  
          }else{
-            return {
+            recipeDetail= {
                id: recipe.id,
                title: recipe.title,
                image: recipe.image,
                diets: recipe.diets,
                sumary: recipe.sumary,
                healthScore: recipe.healthScore,
-               spoonacularScore: recipe.spoonacularScore
-            }
-         }
-      })
-      res.status(200).json(recipeDetail)
-      }else{
-      res.status(404).send(' no se encontró informacion')}
-   }
+               spoonacularScore: recipe.spoonacularScore,           
 
-})
+            } 
+           
+         }
+         res.status(200).json(recipeDetail)
+      })
+      
+     
+
 
 
 

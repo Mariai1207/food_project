@@ -31,12 +31,16 @@ export function getTypes (){
 export function getRecipeDetail(id){ 
    // console.log('id desde 'id)
     return async function (dispatch){
-        const response= await axios.get(`http://localhost:3001/recipes/${id}`)
-        console.log(response.data)       
-        return dispatch({
-            type: "GET_RECIPE_DETAIL",
-            payload: response.data
-        })
+        try{
+            var response= await axios.get(`http://localhost:3001/recipes/${id}`)
+            console.log('desde action',response.data)  
+            return dispatch({
+                type: "GET_RECIPE_DETAIL",
+                payload: response.data
+            })
+         }catch(error){
+             console.log(error)
+         }
     }
 }
 export function filterByTypes (payload){
@@ -45,7 +49,7 @@ export function filterByTypes (payload){
         payload
     }
 }
-export function filterByOrder (payload){
+export function filterByOrderAlphabetical (payload){
     return {
         type: "FILTER_BY_ORDER",
         payload

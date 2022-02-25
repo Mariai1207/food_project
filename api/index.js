@@ -22,7 +22,7 @@ const { conn } = require('./src/db.js'); // instancia de sequelize
 
 // Syncing all the models at once.
 // con el force en true, si se cambia algo en el back, nodemon para y levanta el servidor de nuevo y se borran los datos
-conn.sync({ force:true }).then(() => {
+conn.sync({ force:false }).then(() => {
   server.listen(3001, () => { // levanta el servidor
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });

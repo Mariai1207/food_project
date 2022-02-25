@@ -1,49 +1,41 @@
-import {React, useEffect} from 'react';
+import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Nav } from '../nav/nav';
 import { Recipes } from '../recipes/recipes';
 import './home.css';
-import { getRecipes, getTypes, filterByTypes, filterByOrder } from '../../actions';
+import { getRecipes } from '../../actions';
+import { Filters } from '../filters/filters';
 
 
-export function Home(props){
+
+export function Home() {
     const dispatch = useDispatch()
-    const recipes = useSelector((state)=>state.recipes) // estoy guardando lo que haya en el estado
-    const types = useSelector((state)=>state.types)
-    // cuando el componente se monte se traen las recetas
-    useEffect (()=>{       
+    const recipes= useSelector(state=> state.recipes)
+    
+    
+    // estados locales
+    const [currentPage, setCurrentPage]= useState(1) // pagina actual, siempre empieza en uno, pagina inicial
+    const [recipesPage, setRecipesPage]= useState (9) // recetas mostradas por pagina
+    const lastRecipePage= currentPage* recipesPage; // la posicion de la ultima receta de la pagina --> 9 
+    const firstRecipePage= lastRecipePage- recipesPage; // 0
+    const currentRecipes=  // las recetas que esten en la pagina actual
+
+
+
+    useEffect(() => {
         dispatch(getRecipes())
-        dispatch(getTypes())            
-    },[])
+    }, [dispatch])
     
-    function handleFilterTypes(e){
-      dispatch(filterByTypes(e.target.value))
-        
-    }
-    function handleOrder(e){
-    //  dispatch(filterByOrder(e.target.value))
-        console.log(e.target.value)
-    }
-    
-    return(
+
+
+
+    return (
         <div>
             <Link exact to='/' >atras</Link>
-            <Nav/> 
-            <select onChange={(e)=>handleOrder(e)} >
-                <option value='A-Z'> alphabetical  A-Z</option>
-                <option value='Z-A'> alphabetical  Z-A</option>
-                <option value='max-min'> score max-min </option>
-                <option value='min-max'> score min-max  </option>
-            </select> 
-
-            <select onChange={(e)=>handleFilterTypes(e)}>
-                <option value='all'>all</option>
-                 {types.map(type=> <option value={type}>{type}</option>)}
-            </select>
-            
-            <Recipes/>       
-               
+            <Nav />
+            <Filters />
+            <Recipes />
         </div>
     )
 }

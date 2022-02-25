@@ -2,7 +2,7 @@ const initialState={
     recipes: [],
     allRecipes:[],
     types: [],
-    recipeId:[]
+    recipeId:{}
 }
 
 const rootReducer =(state=initialState, action) =>{
@@ -14,6 +14,11 @@ const rootReducer =(state=initialState, action) =>{
                 allRecipes: action.payload
             }
         case "GET_RECIPES_SEARCH":
+            if(action.payload==='no se encontró receta'){
+            console.log('no se encontró receta')
+                return state 
+            }
+            
             return{
                 ...state,
                 recipes: action.payload,
@@ -45,14 +50,36 @@ const rootReducer =(state=initialState, action) =>{
           
        
        
-            //case "FILTER_BY_ORDER":
-            // ordenamiento 
-            // puede ser con switch(dependiendo del valor se ordena de ua manera diferente)
-            // desde el back?
-           // return{
+        case "FILTER_BY_ORDER":
+          console.log(action.payload)
+            var nameRecipes=state.allRecipes.map(x =>x)
+           if((action.payload=== 'A-Z')){
 
-          //  }
-            default:
+               console.log(state.allRecipes)
+            nameRecipes.sort(function(a,b){
+                var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+                var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+              
+                // names must be equal
+                return 0;
+            });
+            console.log(nameRecipes)
+           }
+            return{
+                ...state,
+                recipes: nameRecipes,
+                allRecipes: nameRecipes
+            }
+
+          
+
+        default:
             return state
     }
 }
