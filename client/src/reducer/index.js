@@ -46,30 +46,35 @@ const rootReducer =(state=initialState, action) =>{
           return{
                 ...state,
                 recipes:filterByTypes
-            }
-          
+            }      
        
        
-        case "FILTER_BY_ORDER":
-          console.log(action.payload)
-            var nameRecipes=state.allRecipes.map(x =>x)
-           if((action.payload=== 'A-Z')){
-
-               console.log(state.allRecipes)
-            nameRecipes.sort(function(a,b){
-                var nameA = a.title.toUpperCase(); // ignore upper and lowercase
-                var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+        case "FILTER_BY_ORDER_ALPHABETICAL":          
+           var nameRecipes=state.allRecipes.map(x =>x)
+           if((action.payload=== 'A-Z')){            
+                nameRecipes.sort(function(a,b){
+                var nameA = a.title.toUpperCase(); 
+                var nameB = b.title.toUpperCase(); 
                 if (nameA < nameB) {
                   return -1;
                 }
                 if (nameA > nameB) {
                   return 1;
                 }
-              
-                // names must be equal
+                return 0;
+            });           
+           }else if(action.payload==='Z-A'){
+            nameRecipes.sort(function(a,b){
+                var nameA = a.title.toUpperCase(); 
+                var nameB = b.title.toUpperCase(); 
+                if (nameA < nameB) {
+                  return 1;
+                }
+                if (nameA > nameB) {
+                  return -1;
+                }
                 return 0;
             });
-            console.log(nameRecipes)
            }
             return{
                 ...state,
@@ -77,8 +82,21 @@ const rootReducer =(state=initialState, action) =>{
                 allRecipes: nameRecipes
             }
 
-          
-
+        case 'FILTER_BY_ORDER_SCORE':
+            var scoreRecipes=state.allRecipes.map(x =>x)
+            if((action.payload=== 'max-min')){      
+                scoreRecipes.sort((a,b)=> b.spoonacularScore -a.spoonacularScore)
+            } else if(action.payload==='min-max'){
+                scoreRecipes.sort((a,b)=> a.spoonacularScore -b.spoonacularScore)
+            }
+             return {
+                ...state,
+                recipes: scoreRecipes,
+                allRecipes: scoreRecipes
+            }
+        
+        
+        
         default:
             return state
     }

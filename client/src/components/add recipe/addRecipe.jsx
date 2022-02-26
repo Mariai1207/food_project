@@ -1,90 +1,117 @@
-import {React, useState} from 'react';
-
+import {React, useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux'
+import { getTypes, postRecipe } from '../../actions';
 import './addRecipe.css';
- // me cambia el estado ( desde compoente), si imprimo el state me manda error
+
 export function AddRecipe(){
+    const dispatch= useDispatch()
+    const allTypes= useSelector((state)=>state.types)
     const [state, setState]= useState({
         name: '', 
         sumary: '',
         score: '',
         healthScore:'',
-        steps: []
+        steps: '',
+        image:'',
+        types: []
     })
-    function nameInputChange(e){
-        setState({...state, name: e.target.value})
+    useEffect(()=>{
+        dispatch(getTypes())
+    }, [])
+    function handleChangeInput(e){
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
     }
-    function sumaryInputChange (e){
-        setState({...state, sumary: e.target.value})
+    function handleChangeCheckbox(e){
+        if(e.target.checked){
+        setState({
+            ...state,
+            types:[...state.types, e.target.value]
+        })
+        }
+    }   
+    function handleSubmit(e){
+        e.preventDefault()
+        console.log(state)
+        dispatch(postRecipe(state))
     }
-    function scoreInputChange (e){
-        setState({...state, score: e.target.value})
-    }
-    function healthScoreInputChange(e){
-        setState({...state, healthScore: e.target.value})
-    }
-    function stepsInputChange(e){
-        setState({...state, steps: e.target.value})
-    }
-    function alert(){
-        alert (state)
-    }
-
-
-
-
-    let steps =[] // va quedando un arreglo de valores de input
-    function InputChange(e){
-      let step= e.target.value      
-    }
-    function addStep(step){
-        steps.push(step)
-      }
 
     return(
         <div>
             <h2>add recipe component</h2>
-            <form onSubmit={(e) =>{
-                e.preventDefault()
-                alert()
-            }}>
+            <form onSubmit={(e) =>{handleSubmit(e)}}>
                 <div className='position'>
-                    <label >Name</label>       
+                    <label >Name</label>
+                    <input 
+                    type='text' 
+                    value={state.name}
+                    size={100} 
+                    name="name" 
+                    onChange={(e)=>handleChangeInput(e)} />        
                 </div>
-                <input size={100} name="name" onChange={(e)=>nameInputChange(e)} />  
+                 
 
                 <div className='position'>   
-                    <label>Sumary</label>       
+                    <label>Sumary</label> 
+                    <textarea cols={98} name="sumary" onChange={(e)=>handleChangeInput(e)}></textarea>      
                 </div> 
-                <textarea cols={98} name="sumary" onChange={(e)=>sumaryInputChange(e)}></textarea>
+                
 
                 <div className='position'>
-                    <label >Score</label>        
+                    <label >Score</label> 
+                    <input  
+                    type= 'text'
+                    value={state.score}
+                    size={100}
+                    name="score"
+                    onChange={(e)=>handleChangeInput(e)}/>       
                 </div>
-                <input  size={100} name="score" onChange={(e)=>scoreInputChange(e)}/>
+                
       
                 <div className='position'>
-                    <label>healthScore</label>        
+                    <label>healthScore</label> 
+                    <input 
+                    type='text' 
+                    value={state.healthScore}
+                    size={100} 
+                    name="healthScore" 
+                    onChange={(e)=>handleChangeInput(e)}/>       
                 </div>
-                <input  size={100} name="healthScore" onChange={(e)=>healthScoreInputChange(e)}/>
+                
      
                 <div className='position'>
-                    <label>Steps</label>        
+                    <label>Steps</label> 
+                    <input
+                    type='text' 
+                    value={state.steps}
+                    size={100} 
+                    name="steps" 
+                    onChange={(e)=>handleChangeInput(e)}/>        
                 </div>
-                <input  size={100} name="steps" onChange={(e)=>stepsInputChange(e)}/>
-     
-
-
-
                 <div className='position'>
-                    <form onSubmit={(e)=>{
-                        e.preventDefault();
-                        addStep()
-                    }}>
-                         <label>Steps</label>  
-                         <input  size={100} name="steps" onChange={(e)=>InputChange(e)}/>
-                         <button type='submit'>ADD STEP</button> 
-                    </form>
+                    <label>Image</label> 
+                    <input
+                    type='text' 
+                    value={state.image}
+                    size={100} 
+                    name="image" 
+                    onChange={(e)=>handleChangeInput(e)}/>        
                 </div>
+                <div>
+                    
+                {allTypes.map((type)=>(
+                   <label>
+                    <input
+                    type='checkbox'
+                    value={type}
+                    name={type}
+                    onChange={(e)=>{handleChangeCheckbox(e)}}
+                    />{type}</label> 
+                ))}
+                </div>
+                                
 
                 <div className='position'>
                     <button type='submit'>ADD</button> 

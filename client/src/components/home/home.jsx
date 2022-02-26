@@ -6,6 +6,7 @@ import { Recipes } from '../recipes/recipes';
 import './home.css';
 import { getRecipes } from '../../actions';
 import { Filters } from '../filters/filters';
+import { Pages } from '../pages/pages';
 
 
 
@@ -19,8 +20,11 @@ export function Home() {
     const [recipesPage, setRecipesPage]= useState (9) // recetas mostradas por pagina
     const lastRecipePage= currentPage* recipesPage; // la posicion de la ultima receta de la pagina --> 9 
     const firstRecipePage= lastRecipePage- recipesPage; // 0
-    const currentRecipes=  // las recetas que esten en la pagina actual
+    const currentRecipes=  recipes.slice(firstRecipePage, lastRecipePage) // las recetas que esten en la pagina actual
 
+    function pages (pageNumber){
+        setCurrentPage(pageNumber)
+    }
 
 
     useEffect(() => {
@@ -34,8 +38,10 @@ export function Home() {
         <div>
             <Link exact to='/' >atras</Link>
             <Nav />
+            <Pages recipesPage={recipesPage} recipes={recipes.length} pages={pages}/>
             <Filters />
-            <Recipes />
+            <Recipes currentRecipes={currentRecipes}/>
+           
         </div>
     )
 }
