@@ -13,22 +13,17 @@ export function RecipeDetail (){
     useEffect (()=>{     
         dispatch(getRecipeDetail(params.id))       
                     
-    },[dispatch])
-    function onClick(e){
-    e.preventDefault()
-     console.log('desde el botoon',recipeDetail.title)
-}
+    },[params.id, dispatch])
+
     return (
         <div>
             <Nav/>
             recipeDetail
-            <h1>
-            {recipeDetail.title}
-            
-            </h1>
-            <img src={recipeDetail.image}/>
-            
-            <buton onClick={(e)=>onClick(e)}>x</buton>
-        </div>
+            <h1> {recipeDetail.title} </h1>
+            <img src={recipeDetail.image} alt=''/>
+            {recipeDetail.diets ? recipeDetail.diets.map(diet=> <h2>{diet}</h2>): ''}
+            {recipeDetail.score ? <h2>{recipeDetail.score}</h2>: ''}
+            {recipeDetail.healthScore ? <h2>{recipeDetail.healthScore}</h2>: ''}         
+          </div>
     )
 }

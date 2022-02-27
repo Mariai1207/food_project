@@ -8,7 +8,7 @@ export function Filters() {
     const types = useSelector((state) => state.types) 
     useEffect(() => {
         dispatch(getTypes())
-    }, [])
+    }, [dispatch])
     function handleOrderAlphabetical(e) {
         dispatch(filterByOrderAlphabetical(e.target.value))       
     }
@@ -35,7 +35,7 @@ export function Filters() {
 
             <select onChange={(e) => handleFilterTypes(e)}>
                 <option value='all'>all</option>
-                {types.map(type => <option value={type}>{type}</option>)}
+                {types.map(type => <option key={type} value={type}>{type}</option>)}
             </select>
         </div>
     )

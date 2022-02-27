@@ -1,4 +1,5 @@
 import React from "react";
+import './pages.css'
 
 export function Pages({recipesPage, recipes, pages}){
     const pageNumber=[]
@@ -9,13 +10,9 @@ export function Pages({recipesPage, recipes, pages}){
     return (
         <nav>
             <h1>pages {pageNumber.length}</h1>
-            <ul>
+            <ul className="position">
             {
-                pageNumber.map(number=> (
-                    <li>
-                       <a onClick={()=>pages(number)}> {number}</a>
-                    </li>
-                    ) )
+                pageNumber.map(number=> (<button key={number} onClick={()=>pages(number)}> {number}</button>))
             }
             </ul>
         </nav>

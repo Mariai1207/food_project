@@ -6,6 +6,15 @@ import './addRecipe.css';
 export function AddRecipe(){
     const dispatch= useDispatch()
     const allTypes= useSelector((state)=>state.types)
+    const [error, setError]= useState({
+        name: '', 
+        sumary: '',
+        score: '',
+        healthScore:'',
+        steps: '',
+        image:'',
+        types: ''
+    })
     const [state, setState]= useState({
         name: '', 
         sumary: '',
@@ -17,7 +26,36 @@ export function AddRecipe(){
     })
     useEffect(()=>{
         dispatch(getTypes())
-    }, [])
+    }, [dispatch])
+
+
+    function validateInput(e){
+        handleChangeInput(e)
+        switch (e.target.name){
+            case "name" :
+                if(/\d/.test(e.target.value)){
+                    setError(
+                        {
+                            ...error,
+                            [e.target.name]: 'the name can´t contains any number'
+                        }
+                    )
+                }else{
+                    setError({
+                        ...error,
+                        [e.target.name]: ''
+                    })
+                }
+                return
+            
+            
+            
+                default: 
+            return e.target.name
+        }
+        
+    }
+
     function handleChangeInput(e){
         setState({
             ...state,
@@ -34,7 +72,6 @@ export function AddRecipe(){
     }   
     function handleSubmit(e){
         e.preventDefault()
-        console.log(state)
         dispatch(postRecipe(state))
     }
 
@@ -49,9 +86,9 @@ export function AddRecipe(){
                     value={state.name}
                     size={100} 
                     name="name" 
-                    onChange={(e)=>handleChangeInput(e)} />        
+                    onChange={(e)=>validateInput(e)} />        
                 </div>
-                 
+                 {error.name? <h3>{error.name}</h3>: null}
 
                 <div className='position'>   
                     <label>Sumary</label> 
@@ -117,7 +154,6 @@ export function AddRecipe(){
                     <button type='submit'>ADD</button> 
                 </div>
             </form>
- {/* cuando se agrega la receta se hace un post para agregarlo a la db */}
         </div>
 )
 
