@@ -65,9 +65,13 @@ export function filterByOrderScore(payload) {
 
 export function postRecipe (payload){
 
-    return async function (){
+    return async function (dispatch){
         const response= await axios.post('http://localhost:3001/recipes', payload)
-        console.log(response)
-        return response;
+        
+        return dispatch({
+            type: "POST_RECIPE",
+            payload
+        })
     }
-}
+    }
+

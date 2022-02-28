@@ -1,7 +1,28 @@
 .card {
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: 210px, 210px, 80px ;
+    grid-template-areas: "image" "text", "stats";
+    border-radius: 18px;
+    background-color: white;
+    box-shadow: 5px, 5px, 15px rgba(0,0,0,0,9) ;
     text-align: center;
-    width: 30%;
-    border-radius: 5px;
-    color: black;
-    border: 1px solid gray;
+  
+width: 30%;
+
+color: black;
+border: 1px solid gray;
+}
+.otro{
+
+}
+.image{
+    grid-area: image;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+    align-content: center;
+}
+.text{
+    grid-area: stats;
 }

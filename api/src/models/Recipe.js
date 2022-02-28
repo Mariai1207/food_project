@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     sumary:{
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: false
     },
     score:{
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       allowNull: true
     }, 
     steps:{
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(3000),
       allowNull: true 
     },
     image:{

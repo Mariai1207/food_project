@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Nav } from '../nav/nav';
 import { Recipes } from '../recipes/recipes';
-import './home.css';
 import { getRecipes } from '../../actions';
 import { Filters } from '../filters/filters';
 import { Pages } from '../pages/pages';
-
+import './home.css';
 
 
 export function Home() {
@@ -24,6 +23,7 @@ export function Home() {
 
     function pages (pageNumber){
         setCurrentPage(pageNumber)
+        
     }
 
 
@@ -38,9 +38,9 @@ export function Home() {
         <div>
             <Link exact to='/' >atras</Link>
             <Nav />
-            <Pages recipesPage={recipesPage} recipes={recipes.length} pages={pages}/>
+            <Pages recipesPage={recipesPage} recipes={recipes.length} pages={pages} currentPage={currentPage}/>
             <Filters />
-            <Recipes currentRecipes={currentRecipes}/>
+            <Recipes currentRecipes={currentRecipes} />
            
         </div>
     )

@@ -2,7 +2,8 @@ const initialState={
     recipes: [],
     allRecipes:[],
     types: [],
-    recipeId:{}
+    recipeId:{},
+    statusAddRecipe:''
 }
 
 const rootReducer =(state=initialState, action) =>{
@@ -30,7 +31,7 @@ const rootReducer =(state=initialState, action) =>{
                 types: action.payload
             }
         case "GET_RECIPE_DETAIL":
-            console.log('desde el reducer',action.payload)
+           
             return {
                 ...state,
                 recipeId: action.payload
@@ -96,7 +97,11 @@ const rootReducer =(state=initialState, action) =>{
             }
         
         
-        
+        case "POST_RECIPE": 
+            return{
+                ...state,
+                statusAddRecipe: action.payload
+            }
         default:
             return state
     }

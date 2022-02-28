@@ -1,7 +1,7 @@
 import React from "react";
 import './pages.css'
 
-export function Pages({recipesPage, recipes, pages}){
+export function Pages({recipesPage, recipes, pages, currentPage}){
     const pageNumber=[]
 
     for(let i=1; i<= Math.ceil(recipes/recipesPage);i++ ){
@@ -9,12 +9,20 @@ export function Pages({recipesPage, recipes, pages}){
     }
     return (
         <nav>
-            <h1>pages {pageNumber.length}</h1>
+            <h1>page {currentPage} </h1>
             <ul className="position">
             {
-                pageNumber.map(number=> (<button key={number} onClick={()=>pages(number)}> {number}</button>))
-            }
+                pageNumber.map(number=> (
+                    <div>
+                <button key={number} onClick={()=>pages(number)}> {number}</button> 
+                
+                </div> 
+
+                ))
+            }  
+           
             </ul>
+        
         </nav>
      )
 }

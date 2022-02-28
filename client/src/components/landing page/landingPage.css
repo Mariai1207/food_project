@@ -2,7 +2,29 @@
     width:100%;
     margin:0%
 }
+.section1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    height: 90vh;
+    background-image: 
+    url('https://cdn.pixabay.com/photo/2020/05/25/17/04/cashew-nut-5219504_960_720.jpg');
+    background-repeat: no-repeat;
+    background-size:  cover;
+    background-position: center center;
+}
 .button{
-    display: inline-flex;
-    width: 100%;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 7px;
+    border: 2px solid rgba(0,0,0,0,4);
+    box-shadow: 2px, 2px, 10px rgba(0,0,0,0,4) ;
+    color: white;
+    background-color: green;    
+}
+.button:hover{
+    background-color: rgb(32, 165, 32);  
 }
