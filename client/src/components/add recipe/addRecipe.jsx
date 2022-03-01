@@ -1,6 +1,5 @@
 import {React, useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
-import { Link } from 'react-router-dom';
 import { getTypes, postRecipe } from '../../actions';
 import './addRecipe.css';
 
@@ -14,16 +13,19 @@ export function AddRecipe(){
         healthScore:'',
         steps: '',
         image:'',
-        types: ''
     })
+    const [disable,setDisable]=useState(
+        true
+    )
     const [state, setState]= useState({
         name: '', 
         sumary: '',
         score: '',
         healthScore:'',
         steps: '',
-        image:'',
+        image: '',
         types: []
+
     })
     useEffect(()=>{
         dispatch(getTypes())
@@ -34,7 +36,14 @@ export function AddRecipe(){
         handleChangeInput(e)
         switch (e.target.name){
             case "name" :
-                /\d/.test(e.target.value)? setError({...error, [e.target.name]: 'the name can´t contains any number'}):
+                if(/\d/.test(e.target.value))
+
+
+
+
+
+                /\d/.test(e.target.value)? 
+                setError({...error, [e.target.name]: 'the name can´t contains any number'}):
                 setError({...error,[e.target.name]:''})
                 return
             case "sumary":
@@ -42,12 +51,12 @@ export function AddRecipe(){
                 setError({...error,[e.target.name]: ''})         
                 return
             case "score":
-                !/\d/.test(e.target.value)|| e.target.value>100? setError({...error, [e.target.name]: 'this field can´t contains characters or exceed 100 points'}):
-                setError({...error,[e.target.name]:''})
+                (/^[0-9]*$/.test(e.target.value) && e.target.value<=100)? setError({...error, [e.target.name]: ''}):
+                setError({...error,[e.target.name]:'this field can´t contains characters or exceed 100 points'})
                 return
             case "healthScore":
-                !/\d/.test(e.target.value)|| e.target.value>100? setError({...error, [e.target.name]: 'this field can´t contains characters or exceed 100 points'}):
-                setError({...error,[e.target.name]:''})
+                (/^[0-9]*$/.test(e.target.value) && e.target.value<=100)? setError({...error, [e.target.name]: ''}):
+                setError({...error,[e.target.name]:'this field can´t contains characters or exceed 100 points'})
                 return
         
             case "steps":
@@ -65,23 +74,34 @@ export function AddRecipe(){
         
     }
 
-    function handleChangeInput(e){
-        setState({
+     function handleChangeInput(e){
+         setState({
             ...state,
             [e.target.name]: e.target.value
         })
     }
     function handleChangeCheckbox(e){
+        console.log(e)
         if(e.target.checked){
         setState({
             ...state,
             types:[...state.types, e.target.value]
         })
         }
+        else{
+            const types = state.types.filter(type => type !== e.target.value)
+
+            setState({
+                ...state,
+                types:types
+            })
+        }
     }   
     function handleSubmit(e){
         e.preventDefault()
+        if(state.name&&state.sumary&&!error.name&&!error.sumary&&!error.score&&!error.healthScore&&!error.steps&&!error.image){
         dispatch(postRecipe(state))
+        }
         
     }
 
@@ -166,10 +186,8 @@ export function AddRecipe(){
                 </div>
                                 
 
-                <div className='position'>
-                    
-                    <button type='submit'>ADD</button> 
-                    
+                <div className='position'>                    
+                    <button  type='submit'>ADD</button>                     
                 </div>
             </form>
         </div>

@@ -70,7 +70,7 @@ export function postRecipe (payload){
         
         return dispatch({
             type: "POST_RECIPE",
-            payload
+            payload: response.data
         })
     }
     }

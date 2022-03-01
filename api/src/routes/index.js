@@ -11,7 +11,7 @@ const {apikey}= process.env;
 const router = Router();
 
 const getRecipesApi= async ()=>{
-   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=e79b139f724e4913a9c13ad1455ff166&offset=0&number=20&addRecipeInformation=true')
+   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=eb86bffdf52d48f4afd70b7a602d513b&offset=0&number=20&addRecipeInformation=true')
    return response.data.results;
 }
 
@@ -124,7 +124,7 @@ router.get('/recipes/:id', async (req, res)=>{
      res.send(recipeDetail)
    }
    else{
-      const response= await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=e79b139f724e4913a9c13ad1455ff166`)
+      const response= await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=eb86bffdf52d48f4afd70b7a602d513b`)
       const recipe= response.data
      
              recipeDetail= {
@@ -132,7 +132,7 @@ router.get('/recipes/:id', async (req, res)=>{
                   title: recipe.title,
                   image: recipe.image,
                   diets: recipe.diets,
-                  sumary: recipe.sumary,
+                  summary: recipe.summary,
                   healthScore: recipe.healthScore,
                   score: recipe.spoonacularScore            
    
@@ -149,7 +149,10 @@ router.get('/recipes/:id', async (req, res)=>{
       })
 
       router.post('/recipes', async(req,res)=>{
-         let {name, sumary, score, healthScore, steps,image,types}= req.body
+         let {name, sumary, score, healthScore, steps,image,types}=  req.body
+         score = score === '' ? null : score
+         healthScore = healthScore === '' ? null : healthScore
+        
          let recipeCreated= await Recipe.create({
             name,
             sumary,
@@ -162,6 +165,7 @@ router.get('/recipes/:id', async (req, res)=>{
          recipeCreated.addDiet(dietdb)
          res.send('recipeCreated')
       })
+
       
      
 

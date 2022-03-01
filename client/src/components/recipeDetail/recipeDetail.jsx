@@ -23,7 +23,9 @@ export function RecipeDetail (){
             <img src={recipeDetail.image} alt=''/>
             {recipeDetail.diets ? recipeDetail.diets.map(diet=> <h2>{diet}</h2>): ''}
             {recipeDetail.score ? <h2>{recipeDetail.score}</h2>: ''}
-            {recipeDetail.healthScore ? <h2>{recipeDetail.healthScore}</h2>: ''}         
+            {recipeDetail.healthScore ? <h2>{recipeDetail.healthScore}</h2>: ''}      
+            <h1> {recipeDetail.summary} </h1>
+
           </div>
     )
 }
