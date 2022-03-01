@@ -8,10 +8,11 @@ const {apikey}= process.env;
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
+
 const router = Router();
 
 const getRecipesApi= async ()=>{
-   const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=eb86bffdf52d48f4afd70b7a602d513b&offset=0&number=20&addRecipeInformation=true')
+   const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&offset=0&number=20&addRecipeInformation=true`)
    return response.data.results;
 }
 
@@ -47,6 +48,7 @@ const getAllRecipes= async ()=>{
 
 
 router.get('/recipes', async (req,res)=>{
+
   const nameQuery= req.query.name; 
   const allRecipes= await getAllRecipes() 
    if(nameQuery) {
@@ -124,7 +126,7 @@ router.get('/recipes/:id', async (req, res)=>{
      res.send(recipeDetail)
    }
    else{
-      const response= await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=eb86bffdf52d48f4afd70b7a602d513b`)
+      const response= await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apikey}`)
       const recipe= response.data
      
              recipeDetail= {

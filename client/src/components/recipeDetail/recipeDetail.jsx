@@ -19,12 +19,20 @@ export function RecipeDetail (){
         <div>
             <Nav/>
             recipeDetail
-            <h1> {recipeDetail.title} </h1>
-            <img src={recipeDetail.image} alt=''/>
+            <div className="title_img">
+                <p> {recipeDetail.title} </p>
+                <img className='image'src={recipeDetail.image} alt=''/>
+            </div>
+            <div className='summary'>
+                <p>Summary</p>
+                <p > {recipeDetail.summary} </p>
+            </div>
+
+
             {recipeDetail.diets ? recipeDetail.diets.map(diet=> <h2>{diet}</h2>): ''}
             {recipeDetail.score ? <h2>{recipeDetail.score}</h2>: ''}
             {recipeDetail.healthScore ? <h2>{recipeDetail.healthScore}</h2>: ''}      
-            <h1> {recipeDetail.summary} </h1>
+            
 
           </div>
     )

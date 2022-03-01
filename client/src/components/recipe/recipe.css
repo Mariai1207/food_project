@@ -1,28 +1,98 @@
-.card {
-    display: grid;
-    grid-template-columns: 300px;
-    grid-template-rows: 210px, 210px, 80px ;
-    grid-template-areas: "image" "text", "stats";
-    border-radius: 18px;
-    background-color: white;
-    box-shadow: 5px, 5px, 15px rgba(0,0,0,0,9) ;
-    text-align: center;
-  
-width: 30%;
+.container{
+  width: 100%;
+  display: flex;
+  max-width: 1100px;
+  justify-content: center; 
+  width: 22rem;
+  border-radius: 8px;
+  min-height: 520px;
+  max-height: 520px;
+  margin: 18px;
+  border: 1px;
+}
+.card{
+  width: 100%;
+  margin: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
+  cursor: default;
+  transition: all 0.3s 0s ease-in;
+}
+.card img{
+  width: 100%;
+  height: 200px; 
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;  
+  align-content: center;
+  max-width: 400px;
+}
+.card img:holder{
+background: rgba(0,0,0,0.1);
+height: 0;
+padding-bottom: 75%;
+}
+.card:hover{
+  box-shadow: 5px 5px 20px  rgba(0, 0, 0,0.4);
+  transform: scale(1.10, 1.10);
+  transform: translateY(-3%);
 
-color: black;
-border: 1px solid gray;
 }
-.otro{
+.info{
+  min-height: 180px;
+  max-height: 180px;
+}
+.card .info{
+  padding: 15px;
+  text-align: center;
+}
+.types{
+  min-height: 110px;
+  max-height: 110px;
+ 
+}
+.text{ 
+  line-height: 0;
+  font-size: 15px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  margin-top: auto;
+  align-content: center;
+}
+     
+    
+h2{
+  background: white;
+  position: relative;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 5px;
+  font-family: 'Roboto Slab', serif;
+  margin-bottom: 30px;
+}
 
+
+.button{
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  display: inline-block;
+  font-size: 1em;
+  background-color: rgb(174, 201, 105);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  box-shadow: 0 2px 25px rgba(175, 200, 145, 0.5);    
+ width: 100%;
+ margin-top: 10px;
 }
-.image{
-    grid-area: image;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    background-size: cover;
-    align-content: center;
+.button:hover{
+  background-color: rgb(171, 202, 93);  
 }
-.text{
-    grid-area: stats;
-}
+
+
+
+

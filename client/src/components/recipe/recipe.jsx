@@ -5,19 +5,21 @@ import './recipe.css';
 
 export function Recipe(props){      
     return(
-        <div className='card'>
-            
-            <div className='image'>
-            <img src={props.recipe.image} alt='' />
-
-           </div>
-           <div className='text'>
-            <h2>recipe</h2>
-            <h2>{props.recipe.title}</h2>
-            <p>{props.recipe.sumary}</p>
-            {props.recipe.diets.map(diet=> <h3 key={diet}>{diet}</h3>)}
-           </div>
-           <Link to= {`/recipes/${props.recipe.id}`}> detail </Link>
+        <div className='container'>
+            <div className='card'>          
+                <figure>       
+                    <img className='image' src={props.recipe.image} alt='' />                
+                </figure>            
+                <div className='info'>
+                    <h2>{props.recipe.title}</h2>  
+                    <div className='types'>
+                    {props.recipe.diets.map(diet=> <p className='text' key={diet}>{diet}</p>)}
+                    </div>
+                   
+                </div>
+                <Link to= {`/recipes/${props.recipe.id}`}> <button className='button'>detail</button>  </Link>
+    
+            </div>  
         </div>
     )
 }

@@ -1,0 +1,30 @@
+.title_img{
+    width: 30%;
+    background-color: white;
+    box-shadow: 0px 14px 28px rgba(0,0,0,0.2);
+    max-width: auto;
+    margin-left: 2cm;
+}
+.title_img img{
+    width: 98%;
+}
+.image{
+    width: 400px;
+    height: auto;
+    border: 2px solid rgba(126, 118, 118, 0.061);
+    border-top-right-radius: 20px;
+   
+}
+.title_img p{
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: 30px;
+   
+}
+.summary p{
+    width: 800px;
+    font-size: 15px;
+}
+.summary{
+    
+}
