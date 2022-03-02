@@ -102,6 +102,23 @@ const rootReducer =(state=initialState, action) =>{
                 ...state,
                 statusAddRecipe: action.payload
             }
+        
+        case "FILTER_BY_ORIGIN":
+            var allRecipes=state.allRecipes;
+            var recipeFilter=[]
+            console.log(action.payload)
+            if(action.payload==='All'){
+               recipeFilter=allRecipes
+            }else if(action.payload==='dataBase'){
+                recipeFilter= allRecipes.filter(recipe=> recipe.id.toString().includes('db'))          
+            }else if(action.payload==='Api'){
+                recipeFilter= allRecipes.filter(recipe=> !recipe.id.toString().includes('db')) 
+            }
+            return{
+                ...state,
+                recipes: recipeFilter
+            }
+
         default:
             return state
     }

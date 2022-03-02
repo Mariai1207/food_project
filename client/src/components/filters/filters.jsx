@@ -1,7 +1,7 @@
 import './filters.css';
 import { React, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterByOrderAlphabetical,filterByOrderScore, filterByTypes, getTypes } from '../../actions';
+import { filterByOrderAlphabetical,filterByOrderScore, filterByTypes, getTypes, filterbyOrigin } from '../../actions';
 
 export function Filters() {
     const dispatch = useDispatch()
@@ -20,6 +20,10 @@ export function Filters() {
         dispatch(filterByTypes(e.target.value))
 
     }
+    function handleFilterOrigin(e){
+        console.log(e.target.value)
+       dispatch(filterbyOrigin(e.target.value))
+    }
 
 
     return (
@@ -36,6 +40,12 @@ export function Filters() {
             <select onChange={(e) => handleFilterTypes(e)}>
                 <option value='all'>all</option>
                 {types.map(type => <option key={type} value={type}>{type}</option>)}
+            </select>
+
+            <select onChange={(e)=>handleFilterOrigin(e)}>
+                <option value="All">All</option>
+                <option value="dataBase">dataBase</option>
+                <option value="Api">Api</option>
             </select>
         </div>
     )

@@ -75,3 +75,11 @@ export function postRecipe (payload){
     }
     }
 
+export function filterbyOrigin(payload){
+    console.log('desde action', payload)
+    return {
+            type: "FILTER_BY_ORIGIN",
+            payload,
+        }
+    
+}
