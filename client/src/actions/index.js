@@ -1,20 +1,23 @@
 import axios from 'axios';
 
 export function getRecipes() {
+
     return async function (dispatch) {
-        const response = await axios.get('http://localhost:3001/recipes')
+     
+         const response= await axios.get('http://localhost:3001/recipes')
         return dispatch({
-            type: "GET_RECIPES",
-            payload: response.data
-        })
+        type: "GET_RECIPES",
+        payload:response.data
+    })
     }
+   
 }
 
 export function getRecipesSearch(title) {
     return async function (dispatch) {
         const response = await axios.get('http://localhost:3001/recipes?name=' + title)
         return dispatch({
-            type: "GET_RECIPES",
+            type: "GET_RECIPES_SEARCH",
             payload: response.data
         })
     }
@@ -29,8 +32,7 @@ export function getTypes() {
     }
 }
 export function getRecipeDetail(id) {
-    // console.log('id desde 'id)
-    return async function (dispatch) {
+        return async function (dispatch) {
         try {
             var response = await axios.get(`http://localhost:3001/recipes/${id}`)
             console.log('desde action', response.data)
@@ -64,7 +66,7 @@ export function filterByOrderScore(payload) {
 }
 
 export function postRecipe (payload){
-
+  
     return async function (dispatch){
         const response= await axios.post('http://localhost:3001/recipes', payload)
         
@@ -73,13 +75,11 @@ export function postRecipe (payload){
             payload: response.data
         })
     }
-    }
-
-export function filterbyOrigin(payload){
-    console.log('desde action', payload)
-    return {
-            type: "FILTER_BY_ORIGIN",
-            payload,
-        }
-    
 }
+export function getRecipeCreated(id){
+    return{
+        type: 'RECIPE_CREATED',
+        payload:id
+    }
+}
+

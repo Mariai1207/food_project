@@ -2,4 +2,24 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-right: 10px;
+    text-align: center;
+}
+.position button{
+    display: inline-block;
+    margin-right: 10px;
+    background: rgb(174, 201, 105);
+    border: 0;
+    height: 20px;
+}
+
+.position button:hover{
+    background: rgb(170, 201, 92)
+}
+.position .currentPage{
+    display: inline-block;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 0;
+    height: auto;
 }

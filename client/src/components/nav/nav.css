@@ -3,7 +3,24 @@
 }
 .SearchBar{
     text-align : start;
+   margin-left: 650px;
+   align-self: auto;
+
+ 
+   
 }
 .AddRecipe{
     text-align : end;
+}
+#addRecipe{
+    width: 30px;
+}
+#goBack{
+    width: 30px;
+    padding: 0;
+}
+.goBack{
+    margin-top:2px;
+   margin-left: 6px;
+   float: left;
 }

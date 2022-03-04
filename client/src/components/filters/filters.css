@@ -1,0 +1,9 @@
+.select{
+    margin-right: 10px;
+    width: 200px;
+    font-size: 20px;
+    text-align: center ;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 20px  rgba(0, 0, 0,0.4);
+}

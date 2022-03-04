@@ -9,8 +9,8 @@ export function Recipes(props){
 
     return(
         <div className='cards'>
-            {props.currentRecipes.map(recipe =><Recipe recipe={recipe} key={recipe}/> )}
-            
+            {props.currentRecipes.map(recipe =><Recipe recipe={recipe} key={recipe.id}/> )}
+          
         </div>
     )
 }

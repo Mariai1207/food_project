@@ -5,8 +5,8 @@
   justify-content: center; 
   width: 22rem;
   border-radius: 8px;
-  min-height: 520px;
-  max-height: 520px;
+  min-height: 530px;
+  max-height: 530px;
   margin: 18px;
   border: 1px;
 }
@@ -52,7 +52,7 @@ padding-bottom: 75%;
   max-height: 110px;
  
 }
-.text{ 
+.tex{ 
   line-height: 0;
   font-size: 15px;
   text-align: center;
@@ -87,7 +87,7 @@ h2{
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
   box-shadow: 0 2px 25px rgba(175, 200, 145, 0.5);    
  width: 100%;
- margin-top: 10px;
+ margin-top: 5px;
 }
 .button:hover{
   background-color: rgb(171, 202, 93);  

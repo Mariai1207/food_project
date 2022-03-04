@@ -11,6 +11,7 @@ export function SearchBar (){
     function handleOnSubmit(e){
        e.preventDefault()         
        dispatch(getRecipesSearch(stateInput))
+       setStateInput('')
        
     }
     function handleInput (e){
@@ -28,6 +29,7 @@ export function SearchBar (){
                 autoComplete='off'
                 placeholder='Search...'
                 onChange={(e)=>handleInput(e)}
+                value={stateInput}
                 />
                 <button type='submit'> Buscar</button>
             </form>

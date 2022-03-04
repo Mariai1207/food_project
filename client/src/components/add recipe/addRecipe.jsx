@@ -1,32 +1,15 @@
 import {React, useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
+import{useNavigate} from 'react-router-dom'
 import { getTypes, postRecipe } from '../../actions';
 import './addRecipe.css';
 
 export function AddRecipe(){
     const dispatch= useDispatch()
     const allTypes= useSelector((state)=>state.types)
-    const [error, setError]= useState({
-        name: '', 
-        sumary: '',
-        score: '',
-        healthScore:'',
-        steps: '',
-        image:'',
-    })
-    const [disable,setDisable]=useState(
-        true
-    )
-    const [state, setState]= useState({
-        name: '', 
-        sumary: '',
-        score: '',
-        healthScore:'',
-        steps: '',
-        image: '',
-        types: []
-
-    })
+    const [error, setError]= useState({ })
+    const navigate= useNavigate()
+    const [state, setState]= useState({types:[]})
     useEffect(()=>{
         dispatch(getTypes())
     }, [dispatch])
@@ -35,13 +18,7 @@ export function AddRecipe(){
     function validateInput(e){
         handleChangeInput(e)
         switch (e.target.name){
-            case "name" :
-                if(/\d/.test(e.target.value))
-
-
-
-
-
+            case "name" :           
                 /\d/.test(e.target.value)? 
                 setError({...error, [e.target.name]: 'the name can´t contains any number'}):
                 setError({...error,[e.target.name]:''})
@@ -64,8 +41,9 @@ export function AddRecipe(){
                 setError({...error,[e.target.name]: ''})         
                 return
             case "image":
-                !/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(e.target.value)?  setError({...error, [e.target.name]: 'this field must contain a url'}):
-                setError({...error,[e.target.name]:''})
+                /^https?:\/\/[\w-]+(\.[\w-]+)+[/#?]?.*$/.test(e.target.value)? setError({...error,[e.target.name]:''}): 
+                setError({...error, [e.target.name]: 'this field must contain a url'})
+                
                 return
             
                 default: 
@@ -81,7 +59,6 @@ export function AddRecipe(){
         })
     }
     function handleChangeCheckbox(e){
-        console.log(e)
         if(e.target.checked){
         setState({
             ...state,
@@ -101,81 +78,97 @@ export function AddRecipe(){
         e.preventDefault()
         if(state.name&&state.sumary&&!error.name&&!error.sumary&&!error.score&&!error.healthScore&&!error.steps&&!error.image){
         dispatch(postRecipe(state))
+        navigate('/recipecreatedsuccessfully')
+        }else{
+            alert('the name and summary fields are required')
         }
+
         
     }
 
 
     return(
         <div>
-            <h2>add recipe component</h2>
-            <form onSubmit={(e) =>{handleSubmit(e)} } >
+           <h2 className='titleAddRecipe'>
+            Create your recipe!
+           </h2>
+           
+            <form className='form' onSubmit={(e) =>{handleSubmit(e)} } >
                 <div className='position'>
-                    <label >Name</label>
+                    <label htmlFor='name'>Name</label>
                     <input 
+                    className='input'
+                    id='name'
                     type='text' 
                     value={state.name}
                     size={100} 
                     name="name" 
                     onChange={(e)=>validateInput(e)} />        
                 </div>
-                 {error.name? <h3>{error.name}</h3>: null}
+                 {error.name? <p className='errorText'>{error.name}</p>: null}
 
                 <div className='position'>   
-                    <label>Sumary</label> 
-                    <textarea cols={98} name="sumary" onChange={(e)=>validateInput(e)}></textarea>      
+                    <label htmlFor='summary'>Summary</label> 
+                    <textarea className='input' id= 'summary'cols={98} name="sumary" onChange={(e)=>validateInput(e)}></textarea>      
                 </div> 
-                {error.sumary? <h3>{error.sumary}</h3>: null}
+                {error.sumary? <p className='errorText'>{error.sumary}</p>: null}
                 
 
                 <div className='position'>
-                    <label >Score</label> 
+                    <label htmlFor='score' >Score</label> 
                     <input  
+                    className='input'
+                    id='score'
                     type= 'text'
                     value={state.score}
                     size={100}
                     name="score"
                     onChange={(e)=>validateInput(e)}/>       
                 </div>
-                {error.score? <h3>{error.score}</h3>: null}
+                {error.score? <p className='errorText'>{error.score}</p>: null}
                 
       
                 <div className='position'>
-                    <label>healthScore</label> 
-                    <input 
+                    <label htmlFor='healtscore'>HealthScore</label> 
+                    <input className='input'
+                    id='healtscore'
                     type='text' 
                     value={state.healthScore}
                     size={100} 
                     name="healthScore" 
                     onChange={(e)=>validateInput(e)}/>       
                 </div>
-                {error.healthScore? <h3>{error.healthScore}</h3>: null}
+                {error.healthScore? <p className='errorText'>{error.healthScore}</p>: null}
                 
      
                 <div className='position'>
-                    <label>Steps</label> 
+                    <label htmlFor='steps'>Steps</label> 
                     <input
+                    className='input'
+                    id='steps'
                     type='text' 
                     value={state.steps}
                     size={100} 
                     name="steps" 
                     onChange={(e)=>validateInput(e)}/>        
                 </div>
-                {error.steps? <h3>{error.steps}</h3>: null}
+                {error.steps? <p className='errorText'>{error.steps}</p>: null}
                 <div className='position'>
-                    <label>Image</label> 
+                    <label htmlFor='image'>Image</label> 
                     <input
+                    className='input'
+                    id='image'
                     type='text' 
                     value={state.image}
                     size={100} 
                     name="image" 
                     onChange={(e)=>validateInput(e)}/>        
                 </div>
-                {error.image? <h3>{error.image}</h3>: null}
+                {error.image? <p className='errorText'>{error.image}</p>: null}
                 <div>
                     
                 {allTypes.map((type)=>(
-                   <label>
+                   <label key={type}>
                     <input
                     type='checkbox'
                     value={type}
@@ -186,8 +179,8 @@ export function AddRecipe(){
                 </div>
                                 
 
-                <div className='position'>                    
-                    <button  type='submit'>ADD</button>                     
+                <div >                    
+                    <button className='buttonAdd' type='submit'>ADD</button>                     
                 </div>
             </form>
         </div>

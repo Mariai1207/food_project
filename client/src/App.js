@@ -5,6 +5,8 @@ import { LandingPage } from './components/landing page/landingPage.jsx';
 import { Home } from './components/home/home';
 import { AddRecipe } from './components/add recipe/addRecipe';
 import {RecipeDetail } from './components/recipeDetail/recipeDetail.jsx'
+import RecipeCreated from './components/recipeCreated/recipeCreated';
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
             <Route  path= '/home' element ={<Home/>}/> 
             <Route  path= '/createRecipe' element ={<AddRecipe/>}/> 
             <Route  path= '/recipes/:id' element ={< RecipeDetail/>}/> 
+            <Route  path= '/recipecreatedsuccessfully' element={<RecipeCreated/>} />
 
         </Routes>
       

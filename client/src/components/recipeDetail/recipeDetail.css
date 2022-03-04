@@ -1,9 +1,15 @@
+.contents{
+    margin-top: 100px;
+}
 .title_img{
-    width: 30%;
+    width: 50%;
     background-color: white;
     box-shadow: 0px 14px 28px rgba(0,0,0,0.2);
     max-width: auto;
-    margin-left: 2cm;
+    margin-left: 400px;
+    margin-top: 40px;
+    align-content: center;
+    height: auto;
 }
 .title_img img{
     width: 98%;
@@ -22,9 +28,49 @@
    
 }
 .summary p{
-    width: 800px;
+    
     font-size: 15px;
+    font-family: 'Raleway', sans-serif;
 }
 .summary{
+    width: 100%;
     
+    max-height:auto;
+}
+.steps{
+    width: 90%;
+    display: inline-block;
+    margin-top: 2cm;
+}
+.steps #index{
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+.steps p{
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}
+.steps h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.check{
+    width: 15px; 
+}
+.diets{
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    width: 100%;
+    max-height: 100%;
+  
+    
+}
+.diets p{
+    font-size: 15px;
+    line-height: 0;
+}
+.score{
+    margin-top:auto;
+    font-weight: bold;
 }

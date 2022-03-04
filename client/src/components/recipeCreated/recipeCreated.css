@@ -1,0 +1,42 @@
+p {
+    font-family: 'Roboto Slab', serif;
+    font-size: 35px;
+    background: white;
+    position: relative;
+    text-align: center;
+    line-height: 1;
+}
+.text{
+    margin-left: 5px;
+    margin-top: 90px;
+    width: 100%;
+    
+}
+.recipe{
+    width: 50%;
+    margin-left: 200px;
+    margin-top: 90px;
+}
+.page{
+    display: flex;
+}
+.button1{
+
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    display: inline-block;
+    font-size: 2em;
+    background-color: rgb(174, 201, 105);
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    box-shadow: 0 2px 25px rgba(175, 200, 145, 0.5);    
+    width: 50%;
+    height: 100px;
+    margin-top: 20px;
+}
+.button1:hover{
+    background-color: rgb(119, 148, 46);  
+  }

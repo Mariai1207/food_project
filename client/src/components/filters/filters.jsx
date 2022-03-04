@@ -1,7 +1,7 @@
 import './filters.css';
 import { React, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterByOrderAlphabetical,filterByOrderScore, filterByTypes, getTypes, filterbyOrigin } from '../../actions';
+import { filterByOrderAlphabetical,filterByOrderScore, filterByTypes, getTypes, } from '../../actions';
 
 export function Filters() {
     const dispatch = useDispatch()
@@ -20,33 +20,29 @@ export function Filters() {
         dispatch(filterByTypes(e.target.value))
 
     }
-    function handleFilterOrigin(e){
-        console.log(e.target.value)
-       dispatch(filterbyOrigin(e.target.value))
-    }
+   
 
 
     return (
         <div>
-            <select onChange={(e) => handleOrderAlphabetical(e)} >
+            <select className='select' onChange={(e) => handleOrderAlphabetical(e)} >
+                <option value="default">Alphabetical Order</option>
                 <option value='A-Z'> alphabetical  A-Z</option>
                 <option value='Z-A'> alphabetical  Z-A</option>
             </select>
-            <select onChange={(e) => handleOrderScore(e)} >
+            <select className='select' onChange={(e) => handleOrderScore(e)} >
+                <option value="default">Order by score</option>
                 <option value='max-min'> score max-min </option>
                 <option value='min-max'> score min-max  </option>
             </select>
 
-            <select onChange={(e) => handleFilterTypes(e)}>
+            <select className='select' onChange={(e) => handleFilterTypes(e)}>
+                <option value="default">Order by diet type</option>
                 <option value='all'>all</option>
                 {types.map(type => <option key={type} value={type}>{type}</option>)}
             </select>
 
-            <select onChange={(e)=>handleFilterOrigin(e)}>
-                <option value="All">All</option>
-                <option value="dataBase">dataBase</option>
-                <option value="Api">Api</option>
-            </select>
+            
         </div>
     )
 }

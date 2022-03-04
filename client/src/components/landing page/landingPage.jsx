@@ -6,9 +6,7 @@ export function LandingPage(){
     return(
         <div>
             <section  className='section1'>
-            <div >                
-                <h1>landing page</h1>
-            </div>
+            
             <div>            
                 <Link to= '/home'> <button className='button'>Home</button> </Link>
             </div>

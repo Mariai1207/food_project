@@ -1,19 +1,18 @@
  const {Recipe, Diet}= require('../db.js')
  const axios = require('axios')
 
-const { Router, response } = require('express');
+const { Router }= require('express');
 const {apikey}= process.env;
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 
 
 const router = Router();
 
+
+
 const getRecipesApi= async ()=>{
-   const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&offset=0&number=20&addRecipeInformation=true`)
+ const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&offset=0&number=100&addRecipeInformation=true`)
    return response.data.results;
+  
 }
 
 const getRecipesDb= async ()=>{
@@ -48,17 +47,18 @@ const getAllRecipes= async ()=>{
 
 
 router.get('/recipes', async (req,res)=>{
-
+   
   const nameQuery= req.query.name; 
   const allRecipes= await getAllRecipes() 
+ let mesagge=[{data:'not found'}]
    if(nameQuery) {
       let searchName= await allRecipes.filter(recipe=> recipe.title.toLowerCase().includes(nameQuery))
-      console.log(searchName)
+     
       searchName.length?       
       res.status(200).send(searchName):
-      res.status(404).send('no se encontró receta')
-   }else{
-      res.send(allRecipes)
+      res.json([])
+   }  else{
+      res.json(allRecipes)
    }
 })
 
@@ -67,19 +67,19 @@ const getDietsDb= async ()=>{
    return response 
 }
 
-const addDietsFromApi= async (diets)=>{
+const addDietsFromApi= async (dietsDb)=>{
    const recipesApi = await getRecipesApi()
    recipesApi.forEach(element => {
-      element.diets.forEach(diet => {
-         if(!diets.includes(diet)){ 
-            diets.push(diet)
+      element.diets.forEach(dietRecipe => {
+         if(!dietsDb.includes(dietRecipe)){ 
+            dietsDb.push(dietRecipe)
             Diet.create({
-               name:diet
+               name:dietRecipe
             })
          }
       })
    });
-   return diets
+   return dietsDb
 }
 
  async function storeDietsDb(){
@@ -104,7 +104,7 @@ async function processDBDetail(id){
       id: 'db'+recipe.dataValues.id,
       title: recipe.dataValues.name,
       diets: recipe.dataValues.Diets.map(diet => diet.name),
-      sumary: recipe.dataValues.sumary 
+      summary: recipe.dataValues.sumary 
      }
      
      if(recipe.dataValues.score){
@@ -114,7 +114,10 @@ async function processDBDetail(id){
       recipeDetail.healthScore= recipe.dataValues.healthScore
    }
    if(recipe.dataValues.steps){
-      recipeDetail.steps= recipe.dataValues.steps
+      recipeDetail.stepsDb= recipe.dataValues.steps
+   }
+   if(recipe.dataValues.image){
+      recipeDetail.image= recipe.dataValues.image
    }
    return recipeDetail
 }
@@ -144,11 +147,8 @@ router.get('/recipes/:id', async (req, res)=>{
             }
             res.status(200).json(recipeDetail)
    }
-     
-    
-
-  
       })
+    
 
       router.post('/recipes', async(req,res)=>{
          let {name, sumary, score, healthScore, steps,image,types}=  req.body
@@ -165,11 +165,11 @@ router.get('/recipes/:id', async (req, res)=>{
          })
          let dietdb= await Diet.findAll({where: {name: types}})
          recipeCreated.addDiet(dietdb)
-         res.send('recipeCreated')
+       
+         
       })
-
       
-     
+
 
 
 
