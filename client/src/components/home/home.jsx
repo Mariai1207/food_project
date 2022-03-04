@@ -12,18 +12,16 @@ export function Home() {
     const dispatch = useDispatch()
     const recipes= useSelector(state=> state.recipes)
 
-    const [currentPage, setCurrentPage]= useState(1) // pagina actual, siempre empieza en uno, pagina inicial
-    const [recipesPage]= useState (9) // recetas mostradas por pagina
-    const lastRecipePage= currentPage* recipesPage; // la posicion de la ultima receta de la pagina --> 9 
-    const firstRecipePage= lastRecipePage- recipesPage; // 0
-    const currentRecipes=  recipes.slice(firstRecipePage, lastRecipePage) // las recetas que esten en la pagina actual
+    const [currentPage, setCurrentPage]= useState(1) 
+    const [recipesPage]= useState (9) 
+    const lastRecipePage= currentPage* recipesPage; 
+    const firstRecipePage= lastRecipePage- recipesPage; 
+    const currentRecipes=  recipes.slice(firstRecipePage, lastRecipePage) 
 
     function pages (pageNumber){
         setCurrentPage(pageNumber)
         
     }
-
-
     useEffect(() => {
         dispatch(getRecipes())
     }, [dispatch])

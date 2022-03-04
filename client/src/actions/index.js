@@ -82,4 +82,9 @@ export function getRecipeCreated(id){
         payload:id
     }
 }
-
+export function desmontar(payload){
+    return{
+        type: 'DESMONTAR',
+        payload,
+    }
+}

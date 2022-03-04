@@ -41,6 +41,12 @@ const rootReducer =(state=initialState, action) =>{
                 ...state,
                 recipeId: action.payload
             }
+
+        case 'DESMONTAR':
+            return{
+                ...state,
+                recipeId:{}
+            }
         case "FILTER_BY_TYPES":         
             let filterByTypes=[]
             if(action.payload==='all'||action.payload==='default' ) {
@@ -113,7 +119,7 @@ const rootReducer =(state=initialState, action) =>{
                 ...state,
                 
             }
-
+       
       
               
         default:

@@ -29,7 +29,8 @@ const getAllRecipes= async ()=>{
          title: recipe.title,
          image: recipe.image,
          diets: recipe.diets,
-         spoonacularScore: recipe.spoonacularScore
+         spoonacularScore: recipe.spoonacularScore,
+         readyInMinutes: recipe.readyInMinutes
         }  
      })
    const responseDb= await getRecipesDb()
@@ -49,8 +50,7 @@ const getAllRecipes= async ()=>{
 router.get('/recipes', async (req,res)=>{
    
   const nameQuery= req.query.name; 
-  const allRecipes= await getAllRecipes() 
- let mesagge=[{data:'not found'}]
+  const allRecipes= await getAllRecipes()  
    if(nameQuery) {
       let searchName= await allRecipes.filter(recipe=> recipe.title.toLowerCase().includes(nameQuery))
      
@@ -168,6 +168,7 @@ router.get('/recipes/:id', async (req, res)=>{
        
          
       })
+
       
 
 
